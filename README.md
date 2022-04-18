@@ -1,3 +1,8 @@
+# How to launch
+
+First start the server from the `server` folder `node myAPI.js`.
+Then run the entire project.
+
 # MyAPI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.
