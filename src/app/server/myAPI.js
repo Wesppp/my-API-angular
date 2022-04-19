@@ -6,15 +6,15 @@ const app = express();
 const jsonParser = express.json();
 const port = 3002;
 
-const filePath = "users.json";
-app.get("/api/users", function (req, res) {
+const filePath = "subjects.json";
+app.get("/api/subjects", function (req, res) {
   const content = fs.readFileSync(filePath, "utf8");
   const users = JSON.parse(content);
 
   res.send(users);
 });
 
-app.get("/api/users/:id", function(req, res){
+app.get("/api/subjects/:id", function(req, res){
 
   const id = req.params.id; // получаем id
   const content = fs.readFileSync(filePath, "utf8");
@@ -36,7 +36,7 @@ app.get("/api/users/:id", function(req, res){
   }
 });
 
-app.post("/api/users", jsonParser, function (req, res) {
+app.post("/api/subjects", jsonParser, function (req, res) {
 
   if (!req.body) return res.sendStatus(400);
 
@@ -53,11 +53,11 @@ app.post("/api/users", jsonParser, function (req, res) {
   user.id = id + 1;
   users.push(user);
   data = JSON.stringify(users);
-  fs.writeFileSync("users.json", data);
+  fs.writeFileSync("subjects.json", data);
   res.send(user);
 });
 
-app.delete("/api/users/:id", function (req, res) {
+app.delete("/api/subjects/:id", function (req, res) {
 
   const id = req.params.id;
   let data = fs.readFileSync(filePath, "utf8");
@@ -74,7 +74,7 @@ app.delete("/api/users/:id", function (req, res) {
 
     const user = users.splice(index, 1)[0];
     data = JSON.stringify(users);
-    fs.writeFileSync("users.json", data);
+    fs.writeFileSync("subjects.json", data);
     // отправляем удаленного пользователя
     res.send(user);
   } else {
@@ -82,7 +82,7 @@ app.delete("/api/users/:id", function (req, res) {
   }
 });
 
-app.put("/api/users", jsonParser, function (req, res) {
+app.put("/api/subjects", jsonParser, function (req, res) {
 
   if (!req.body) return res.sendStatus(400);
 
@@ -104,7 +104,7 @@ app.put("/api/users", jsonParser, function (req, res) {
     user.age = userAge;
     user.name = userName;
     data = JSON.stringify(users);
-    fs.writeFileSync("users.json", data);
+    fs.writeFileSync("subjects.json", data);
     res.send(user);
   } else {
     res.status(404).send(user);
