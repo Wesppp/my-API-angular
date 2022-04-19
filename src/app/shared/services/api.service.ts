@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { ISubject } from "../interfaces/subjects";
 import {catchError, Observable, of} from "rxjs";
 import { environment } from "../../../environments/environment";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { environment } from "../../../environments/environment";
 export class ApiService {
   apiUrl = environment.apiUrl
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private snackBar: MatSnackBar) { }
 
   getUsers(): Observable<ISubject[]> {
      return this.http.get<ISubject[]>(this.apiUrl).pipe(
@@ -57,5 +59,11 @@ export class ApiService {
 
       return of(result as T);
     }
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(`${message}`, '', {
+      duration: 2000
+    })
   }
 }

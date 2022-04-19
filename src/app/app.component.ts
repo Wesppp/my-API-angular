@@ -20,6 +20,7 @@ export class AppComponent {
       .subscribe(subjects =>  {
         if (subjects.length) {
           this.subjects = subjects
+          this.apiService.openSnackBar('Предметы получены')
         }
       }, error => console.log(error.message))
   }
@@ -30,6 +31,7 @@ export class AppComponent {
         if (subject) {
           this.subjects = []
           this.subjects[0] = subject
+          this.apiService.openSnackBar('Предмет получен')
         }
       }, error => console.log(error.message))
   }
@@ -38,7 +40,7 @@ export class AppComponent {
     this.apiService.postUser({name} as ISubject)
       .subscribe(subject => {
         if (subject) {
-          console.log(subject)
+          this.apiService.openSnackBar('Предмет добавлен')
         }
       }, error => console.log(error.message))
   }
@@ -47,15 +49,16 @@ export class AppComponent {
     this.apiService.deleteUser(id)
       .subscribe(subject => {
         if (subject) {
-          console.log(subject)
+          this.apiService.openSnackBar('Предмет удалён')
         }
       }, error => console.log(error.message))
   }
 
   putUser(name: string, id: number) {
     this.apiService.putUser({name, id} as ISubject)
-      .subscribe(smth => {
-        console.log(smth)
+      .subscribe(subject => {
+        if (subject)
+        this.apiService.openSnackBar('Предмет обновлён')
       }, error => console.log(error.message))
   }
 }
