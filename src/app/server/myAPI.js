@@ -13,23 +13,22 @@ app.get("/api/subjects", function (req, res) {
   res.send(subjects);
 });
 
-app.get("/api/subjects/:id", function(req, res){
-  const id = req.params.id; // получаем id
+app.get("/api/subjects/:id", function (req, res) {
+  const id = req.params.id;
   const content = fs.readFileSync(filePath, "utf8");
   const subjects = JSON.parse(content);
   let subject = null;
 
-  for(let i=0; i<subjects.length; i++){
-    if(subjects[i].id==id){
+  for (let i = 0; i < subjects.length; i++) {
+    if (subjects[i].id == id) {
       subject = subjects[i];
       break;
     }
   }
 
-  if(subject){
+  if (subject) {
     res.send(subject);
-  }
-  else{
+  } else {
     res.status(404).send();
   }
 });
@@ -68,7 +67,6 @@ app.delete("/api/subjects/:id", function (req, res) {
     }
   }
   if (index > -1) {
-
     const subject = subjects.splice(index, 1)[0];
     data = JSON.stringify(subjects);
     fs.writeFileSync("subjects.json", data);
