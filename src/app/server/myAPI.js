@@ -9,27 +9,25 @@ const port = 3002;
 const filePath = "subjects.json";
 app.get("/api/subjects", function (req, res) {
   const content = fs.readFileSync(filePath, "utf8");
-  const users = JSON.parse(content);
-
-  res.send(users);
+  const subjects = JSON.parse(content);
+  res.send(subjects);
 });
 
 app.get("/api/subjects/:id", function(req, res){
-
   const id = req.params.id; // получаем id
   const content = fs.readFileSync(filePath, "utf8");
-  const users = JSON.parse(content);
-  let user = null;
+  const subjects = JSON.parse(content);
+  let subject = null;
 
-  for(let i=0; i<users.length; i++){
-    if(users[i].id==id){
-      user = users[i];
+  for(let i=0; i<subjects.length; i++){
+    if(subjects[i].id==id){
+      subject = subjects[i];
       break;
     }
   }
 
-  if(user){
-    res.send(user);
+  if(subject){
+    res.send(subject);
   }
   else{
     res.status(404).send();
@@ -40,43 +38,42 @@ app.post("/api/subjects", jsonParser, function (req, res) {
 
   if (!req.body) return res.sendStatus(400);
 
-  const userName = req.body.name;
-  const userAge = req.body.age;
-  let user = {name: userName, age: userAge};
+  const subjectName = req.body.name;
+  let subject = {name: subjectName};
 
   let data = fs.readFileSync(filePath, "utf8");
-  let users = JSON.parse(data);
+  let subjects = JSON.parse(data);
 
-  const id = Math.max.apply(Math, users.map(function (o) {
+  const id = Math.max.apply(Math, subjects.map(function (o) {
     return o.id;
   }))
-  user.id = id + 1;
-  users.push(user);
-  data = JSON.stringify(users);
+  subject.id = id + 1;
+  subjects.push(subject);
+  data = JSON.stringify(subjects);
   fs.writeFileSync("subjects.json", data);
-  res.send(user);
+  res.send(subject);
 });
 
 app.delete("/api/subjects/:id", function (req, res) {
 
   const id = req.params.id;
   let data = fs.readFileSync(filePath, "utf8");
-  let users = JSON.parse(data);
+  let subjects = JSON.parse(data);
   let index = -1;
 
-  for (let i = 0; i < users.length; i++) {
-    if (users[i].id == id) {
+  for (let i = 0; i < subjects.length; i++) {
+    if (subjects[i].id == id) {
       index = i;
       break;
     }
   }
   if (index > -1) {
 
-    const user = users.splice(index, 1)[0];
-    data = JSON.stringify(users);
+    const subject = subjects.splice(index, 1)[0];
+    data = JSON.stringify(subjects);
     fs.writeFileSync("subjects.json", data);
-    // отправляем удаленного пользователя
-    res.send(user);
+
+    res.send(subject);
   } else {
     res.status(404).send();
   }
@@ -86,28 +83,26 @@ app.put("/api/subjects", jsonParser, function (req, res) {
 
   if (!req.body) return res.sendStatus(400);
 
-  const userId = req.body.id;
-  const userName = req.body.name;
-  const userAge = req.body.age;
+  const subjectId = req.body.id;
+  const subjectName = req.body.name;
 
   let data = fs.readFileSync(filePath, "utf8");
-  const users = JSON.parse(data);
-  let user;
-  for (let i = 0; i < users.length; i++) {
-    if (users[i].id == userId) {
-      user = users[i];
+  const subjects = JSON.parse(data);
+  let subject;
+  for (let i = 0; i < subjects.length; i++) {
+    if (subjects[i].id == subjectId) {
+      subject = subjects[i];
       break;
     }
   }
 
-  if (user) {
-    user.age = userAge;
-    user.name = userName;
-    data = JSON.stringify(users);
+  if (subject) {
+    subject.name = subjectName;
+    data = JSON.stringify(subjects);
     fs.writeFileSync("subjects.json", data);
-    res.send(user);
+    res.send(subject);
   } else {
-    res.status(404).send(user);
+    res.status(404).send(subject);
   }
 });
 
