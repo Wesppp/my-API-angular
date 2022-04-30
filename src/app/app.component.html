@@ -8,17 +8,17 @@
         <input [(ngModel)]="subject.name" class="form-control" name="name" id="name"/>
       </div>
       <div class="form-group">
-        <label for="crud">Num for delete/update/getUser:</label>
-        <input min="1" type="number" #number class="form-control" name="crud" id="crud"/>
+        <label for="crud">Field for deleteById/updateById/getById:</label>
+        <input min="1" type="text" #number class="form-control" name="crud" id="crud"/>
       </div>
     </div>
 
     <div class="panel-body">
       <button type="submit" (click)="addUser(subject.name)" class="btn btn-sm btn-primary">POST SUBJECT</button>
       <button class="btn btn-sm btn-primary" (click)="getUsers()">GET SUBJECTS</button>
-      <button class="btn btn-sm btn-primary" (click)="deleteUser(+number.value)">DELETE SUBJECT</button>
-      <button class="btn btn-sm btn-primary" (click)="putUser(subject.name, +number.value)">UPDATE SUBJECT</button>
-      <button class="btn btn-sm btn-primary" (click)="getUser(+number.value)">GET SUBJECT</button>
+      <button class="btn btn-sm btn-primary" (click)="deleteUser(number.value)">DELETE SUBJECT</button>
+      <button class="btn btn-sm btn-primary" (click)="putUser(subject.name, number.value)">UPDATE SUBJECT</button>
+      <button class="btn btn-sm btn-primary" (click)="getUser(number.value)">GET SUBJECT</button>
     </div>
   </form>
 

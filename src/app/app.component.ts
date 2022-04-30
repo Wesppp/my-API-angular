@@ -9,7 +9,7 @@ import {ApiService} from "./shared/services/api.service";
 })
 export class AppComponent {
   title = 'my-API';
-  subject: ISubject = {name: '', id: 0}
+  subject: ISubject = {name: '', id: ''}
   subjects: ISubject[] = []
 
   constructor(private apiService: ApiService) {
@@ -25,7 +25,7 @@ export class AppComponent {
       }, error => console.log(error.message))
   }
 
-  getUser(id: number) {
+  getUser(id: string) {
     this.apiService.getUser(id)
       .subscribe(subject => {
         if (subject) {
@@ -45,7 +45,7 @@ export class AppComponent {
       }, error => console.log(error.message))
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: string) {
     this.apiService.deleteUser(id)
       .subscribe(subject => {
         if (subject) {
@@ -54,7 +54,7 @@ export class AppComponent {
       }, error => console.log(error.message))
   }
 
-  putUser(name: string, id: number) {
+  putUser(name: string, id: string) {
     this.apiService.putUser({name, id} as ISubject)
       .subscribe(subject => {
         if (subject)

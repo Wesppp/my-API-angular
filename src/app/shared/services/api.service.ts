@@ -20,7 +20,7 @@ export class ApiService {
      )
   }
 
-  getUser(id: number): Observable<ISubject> {
+  getUser(id: string): Observable<ISubject> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<ISubject>(url).pipe(
       catchError(this.handleError<ISubject>("get user"))
@@ -33,7 +33,7 @@ export class ApiService {
     )
   }
 
-  deleteUser(id: number): Observable<ISubject> {
+  deleteUser(id: string): Observable<ISubject> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<ISubject>(url, this.httpOptions).pipe(
       catchError(this.handleError<ISubject>("delete subject"))
