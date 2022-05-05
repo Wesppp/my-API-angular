@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(private apiService: ApiService) {
   }
 
-  getUsers() {
+  getSubjects() {
     this.apiService.getUsers()
       .subscribe(subjects =>  {
         if (subjects.length) {
@@ -25,7 +25,7 @@ export class AppComponent {
       }, error => console.log(error.message))
   }
 
-  getUser(id: string) {
+  getSubject(id: string) {
     this.apiService.getUser(id)
       .subscribe(subject => {
         if (subject) {
@@ -36,7 +36,7 @@ export class AppComponent {
       }, error => console.log(error.message))
   }
 
-  addUser(name: string) {
+  addSubject(name: string) {
     this.apiService.postUser({name} as ISubject)
       .subscribe(subject => {
         if (subject) {
@@ -45,7 +45,7 @@ export class AppComponent {
       }, error => console.log(error.message))
   }
 
-  deleteUser(id: string) {
+  deleteSubject(id: string) {
     this.apiService.deleteUser(id)
       .subscribe(subject => {
         if (subject) {
@@ -54,7 +54,7 @@ export class AppComponent {
       }, error => console.log(error.message))
   }
 
-  putUser(name: string, id: string) {
+  putSubject(name: string, id: string) {
     this.apiService.putUser({name, id} as ISubject)
       .subscribe(subject => {
         if (subject)
